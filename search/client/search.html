@@ -24,7 +24,7 @@
 
 <template name="search_result_item">
 <div class="col s6 m4 l3">
-    <div class="card search-result-item" data-index="{{index}}">
+    <div class="card search-result-item" id="{{imdb}}">
       <div class="card-image waves-effect waves-block waves-light">
         <img class="movie-cover" src="{{imdb_img cover}}">
       </div>
@@ -43,4 +43,32 @@
       </div>
     </div>
 </div>
+</template>
+
+<template name="detailed_item">
+<div class="detailed-item scroll">
+    {{#with item_detail}}
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo">{{Title}}</a>
+                <a href="#" class="left">
+                    <i class="material-icons hide-detail icon-padding">done</i>
+                </a>
+            </div>
+        </nav>
+        <div class="section scroll">
+            <div class="col s12 m3 l3">
+                <img src="{{Poster}}" />
+            </div>
+        </div>
+    {{/with}}
+</div>
+</template>
+
+<template name="search">
+    <div class="search-container container">
+        {{> search_bar}}
+        {{> search_results}}
+        {{> detailed_item}}
+    </div>
 </template>

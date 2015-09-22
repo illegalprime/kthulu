@@ -1,25 +1,30 @@
 var Results = new ReactiveVar([]);
 var cardSize = new ReactiveVar();
+var selected = new ReactiveVar();
 
 var search_imdb = function(query, done) {
     if (query === "") {
         return done([]);
     }
-    query = query.toLowerCase();
+    var q = query.toLowerCase();
     $.ajax({
-        url: "http://sg.media-imdb.com/suggests/" + query[0] + "/" + query + ".json",
+        url: "http://sg.media-imdb.com/suggests/" + q[0] + "/" + q + ".json",
         dataType: "jsonp",
         cache: true,
         jsonp: false,
         jsonpCallback: "imdb$" + query,
     }).done(function(results) {
-        console.log(results);
-        var i = 0;
         done(_.map(results.d, function(result) {
-            // TODO: Default image when none is available
-            var image = result.i[0];
+            var image, icon;
+            if (result.i) {
+                image = result.i[0];
+                if (image) {
+                    icon = image.replace(/_(?=.{4}$)/, "._SX96_CR0,0,96,96_");
+                } else {
+                    // TODO: Default image when none is available
+                }
+            }
             var type = result.q;
-            var icon = image.replace(/_(?=.{4}$)/, "._SX96_CR0,0,96,96_");
             var type_icon;
             var is_person = ! type;
             var title = result.l;
@@ -35,7 +40,6 @@ var search_imdb = function(query, done) {
             }
 
             return {
-                index:     i++,
                 imdb:      result.id,
                 title:     title,
                 created:   result.y,
@@ -66,12 +70,22 @@ Template.search_results.helpers({
 
 Template.search_bar.onRendered(function() {
     this.$("input.search_text").on("input", function() {
-        search_imdb($(this).val(), function(data) {
+
+    });
+});
+
+Template.search_bar.events({
+    "keypress input.search_text": function(event) {
+        search_imdb(event.currentTarget.value, function(data) {
             if (data) {
                 Results.set(data);
             }
         });
-    });
+    },
+
+    "focus input.search_text": function(event) {
+        selected.set();
+    },
 });
 
 Template.search_result_item.helpers({
@@ -88,8 +102,38 @@ Template.search_result_item.helpers({
 
 Template.search_result_item.events({
     "click div.search-result-item": function(event) {
-        var index = parseInt($(event.currentTarget).attr("data-index"));
-        var data = Results.get()[index];
-        window.location = "http://www.imdb.com/title/" + data.imdb;
+        selected.set({
+            loading: true,
+        });
+        Meteor.call("omdb_info", event.currentTarget.id, function(err, data) {
+            if (!err) {
+                selected.set(data);
+            }
+        });
     },
+});
+
+Template.detailed_item.helpers({
+    "item_detail": function() {
+        var data = selected.get();
+        if (data) {
+            $(".detailed-item").show();
+            $(".search-results").hide();
+        } else {
+            $(".search-results").show();
+            $(".detailed-item").hide();
+        }
+        return data;
+    },
+
+    "is_loading": function() {
+        var data = selected.get();
+        return data && data.loading;
+    },
+});
+
+Template.detailed_item.events({
+    "click .hide-detail": function(event) {
+        selected.set();
+    }
 });
