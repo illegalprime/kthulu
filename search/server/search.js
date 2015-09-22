@@ -12,6 +12,7 @@ Meteor.methods({
         if (!data || !data.Response) {
             throw new Meteor.Error("bad_request", result.Error);
         }
+        data.Actors = data.Actors.split(", ");
         return data;
     },
 });
