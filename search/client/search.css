@@ -1,0 +1,18 @@
+div.search-results {
+    overflow: scroll;
+    width: 100%;
+    margin-left: 0px !important;
+    height: calc(100% - 64px);
+    display: flex;
+    flex-wrap: wrap-reverse;
+    flex-direction: column-reverse;
+}
+
+input.search_text {
+    margin: 0px;
+}
+
+div.search-results span.card-title {
+    line-height: normal !important;
+    font-size: 20px !important;
+}

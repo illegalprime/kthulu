@@ -1,0 +1,15 @@
+/* CSS declarations go here */
+.main-container {
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.search-bar {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
