@@ -50,16 +50,57 @@
     {{#with item_detail}}
         <nav>
             <div class="nav-wrapper">
-                <a class="brand-logo">{{Title}}</a>
+                <a class="brand-logo truncate">{{Title}}</a>
                 <a href="#" class="left">
                     <i class="material-icons hide-detail icon-padding">done</i>
                 </a>
             </div>
         </nav>
         <div class="row scroll detailed-item-data">
-            <img class="col s3 m3 l3 poster" src="{{Poster}}" />
-            <div class="col s9 m9 l9">
-                <p class="flow-text">{{Plot}}</p>
+            <img class="col s12 m3 l3 poster" src="{{Poster}}" />
+            <div class="col s12 m9 l9">
+                <div class="row">
+                    <div class="col s12">
+                        <p class="flow-text">{{Plot}}</p>
+                    </div>
+                    <div class="col s6">
+                        <h2 class="center">
+                            <a href="http://www.imdb.com/title/{{imdbID}}/">
+                                <img class="responsive-img txt-img" src="imdb.png"/>
+                                {{imdbRating}}
+                            </a>
+                        </h2>
+                    </div>
+                    <div class="col s6">
+                        <h2 class="center">
+                            <a href="http://www.imdb.com/title/{{imdbID}}/criticreviews">
+                                <img class="responsive-img txt-img" src="mc.png"/>
+                                {{Metascore}}
+                            </a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col s2 center">
+                <p class="flow-text no-margin">{{Year}}</p>
+            </div>
+            <div class="col s2 center">
+                <p class="flow-text no-margin">{{Runtime}}</p>
+            </div>
+            <div class="col s4 center">
+                <p class="flow-text no-margin">{{Genre}}</p>
+            </div>
+            <div class="col s4 center">
+                <a class="waves-effect waves-light btn">
+                    <i class="material-icons right">file_download</i>
+                    {{#if is_tv}}
+                        download all
+                    {{else}}
+                        download
+                    {{/if}}
+                </a>
             </div>
         </div>
     {{/with}}
@@ -67,7 +108,7 @@
 </template>
 
 <template name="search">
-    <div class="search-container container">
+    <div class="search-container">
         {{> search_bar}}
         {{> search_results}}
         {{> detailed_item}}

@@ -13,6 +13,9 @@ Meteor.methods({
             throw new Meteor.Error("bad_request", result.Error);
         }
         data.Actors = data.Actors.split(", ");
+        if (data.Type === "series") {
+            data.is_tv = true;
+        }
         return data;
     },
 });
