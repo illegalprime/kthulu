@@ -50,7 +50,7 @@
     {{#with item_detail}}
         <nav>
             <div class="nav-wrapper">
-                <a class="brand-logo truncate">{{Title}}</a>
+                <a class="brand-logo truncate center">{{Title}}</a>
                 <a href="#" class="left">
                     <i class="material-icons hide-detail icon-padding">done</i>
                 </a>
@@ -83,16 +83,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col s2 center">
+            <div class="col s3 center">
                 <p class="flow-text no-margin">{{Year}}</p>
-            </div>
-            <div class="col s2 center">
-                <p class="flow-text no-margin">{{Runtime}}</p>
             </div>
             <div class="col s4 center">
                 <p class="flow-text no-margin">{{Genre}}</p>
             </div>
-            <div class="col s4 center">
+            <div class="col s5 center">
                 <a class="waves-effect waves-light btn">
                     <i class="material-icons right">file_download</i>
                     {{#if is_tv}}
@@ -103,7 +100,55 @@
                 </a>
             </div>
         </div>
+        {{#if is_tv}}
+            {{> tv_detail tv_info}}
+        {{/if}}
     {{/with}}
+</div>
+</template>
+
+<template name="tv_detail">
+<div class="container">
+    <ul class="collapsible popout" data-collapsible="accordion">
+    {{#each seasons}}
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">airplay</i>{{name}}
+            </div>
+            <div class="collapsible-body">
+                <ul class="collapsible episode-list" data-collapsible="accordion">
+                    {{#each episodes}}
+                    <li>
+                        <div class="collapsible-header">{{number}}. {{name}}</div>
+                        <div class="collapsible-body">
+                            <div class="row">
+                                <div class="col s8">
+                                    <p class="flow-text">{{overview}}</p>
+                                </div>
+                                <img class="col s4" src="{{thumbnail}}" />
+                                <div class="col s12 center">
+                                    <a class="waves-effect waves-light btn">
+                                        <i class="material-icons right">file_download</i>
+                                        download episode
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {{/each}}
+                </ul>
+                <div class="row">
+                    <div class="col s12 center">
+                        <a class="waves-effect waves-light btn">
+                            <i class="material-icons right">file_download</i>
+                            download season
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    {{/each}}
+    </ul>
 </div>
 </template>
 

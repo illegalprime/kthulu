@@ -32,6 +32,11 @@ div.detailed-item-data {
     margin: 10px 0px !important;
 }
 
+.episode-list {
+    box-shadow: none;
+    border: 0px;
+}
+
 .search-bar {
     z-index: 200;
 }

@@ -6,13 +6,14 @@ var search_imdb = function(query, done) {
     if (query === "") {
         return done([]);
     }
-    var q = query.toLowerCase();
+    var q = query.toLowerCase().trim().replace(/\s+/, "_");
+    console.log(q);
     $.ajax({
         url: "http://sg.media-imdb.com/suggests/" + q[0] + "/" + q + ".json",
         dataType: "jsonp",
         cache: true,
         jsonp: false,
-        jsonpCallback: "imdb$" + query,
+        jsonpCallback: "imdb$" + q,
     }).done(function(results) {
         done(_.map(results.d, function(result) {
             var image, icon;
@@ -62,27 +63,23 @@ $(window).resize(_.debounce(function() {
     }
 }, 500));
 
+Template.search_bar.onRendered(function() {
+    this.$(".search_text").on("input", function(event) {
+        search_imdb(event.currentTarget.value, function(data) {
+            if (data) {
+                Results.set(data);
+            }
+        });
+    });
+});
+
 Template.search_results.helpers({
     "search_results": function() {
         return Results.get();
     },
 });
 
-Template.search_bar.onRendered(function() {
-    this.$("input.search_text").on("input", function() {
-
-    });
-});
-
 Template.search_bar.events({
-    "keypress input.search_text": function(event) {
-        search_imdb(event.currentTarget.value, function(data) {
-            if (data) {
-                Results.set(data);
-            }
-        });
-    },
-
     "focus input.search_text": function(event) {
         selected.set();
     },
@@ -105,9 +102,18 @@ Template.search_result_item.events({
         selected.set({
             loading: true,
         });
-        Meteor.call("omdb_info", event.currentTarget.id, function(err, data) {
-            if (!err) {
-                selected.set(data);
+        Meteor.call("omdb_info", event.currentTarget.id, function(err, info) {
+            if (err) {
+                // TODO: Something better
+                return;
+            }
+            if (info.is_tv) {
+                Meteor.call("tv_info", event.currentTarget.id, function(err, tv_info) {
+                    info.tv_info = tv_info;
+                    selected.set(info);
+                });
+            } else {
+                selected.set(info);
             }
         });
     },
@@ -136,4 +142,26 @@ Template.detailed_item.events({
     "click .hide-detail": function(event) {
         selected.set();
     }
+});
+
+Template.tv_detail.onRendered(function() {
+    this.$(".collapsible").collapsible({
+        accordion: true,
+    });
+});
+
+Template.tv_detail.helpers({
+    "seasons": function() {
+        var data = selected.get();
+        if (data.tv_info) {
+            var info = [];
+            _.each(data.tv_info, function(episodes, season) {
+                info.push({
+                    name: "Season " + season,
+                    episodes: episodes,
+                });
+            });
+            return info;
+        }
+    },
 });
