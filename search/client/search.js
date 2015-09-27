@@ -34,9 +34,9 @@ var search_imdb = function(query, done) {
             } else if (type === "feature" || type === "TV movie") {
                 type_icon = "movie";
             } else if (type === "video") {
-                type_icon = "video_library"
+                type_icon = "video_library";
             } else if (is_person) {
-                type_icon = "person_pin"
+                type_icon = "person_pin";
             }
 
             return {
@@ -79,22 +79,20 @@ Template.search_bar.events({
     },
     "click i.clear-search": function(event, self) {
         self.$("input.search_text").val("");
+        selected.set();
         Results.set();
     },
     "click i.do-search": function(event, self) {
         self.$("input.search_text").focus();
+    },
+    "focus input.search_text": function(event) {
+        selected.set();
     },
 });
 
 Template.search_results.helpers({
     "search_results": function() {
         return Results.get();
-    },
-});
-
-Template.search_bar.events({
-    "focus input.search_text": function(event) {
-        selected.set();
     },
 });
 

@@ -56,6 +56,21 @@ div.detailed-item-data {
     margin: 10px 0px !important;
 }
 
+div.detailed-item > div.progress-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.progress-container > div.progress {
+    top: calc(50% - 10px);
+    height: 20px;
+}
+
 .episode-list {
     box-shadow: none;
     border: 0px;
