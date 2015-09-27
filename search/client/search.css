@@ -1,13 +1,37 @@
 div.search-results {
     overflow: scroll;
     width: 100%;
-    margin-left: 0px !important;
+    margin: 0px !important;
     display: flex;
     flex-wrap: wrap-reverse;
 }
 
-input.search_text {
+nav.search-bar input.search_text {
     margin: 0px;
+    padding-left: 0px;
+}
+
+nav.search-bar div.input-field {
+    display: flex;
+}
+
+nav.search-bar i.square {
+    padding-left: .5em;
+    padding-right: .5em;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: initial;
+    transition-delay: initial;
+    cursor: pointer;
+}
+
+nav.search-bar i.active {
+    color: black;
+    background-color: white;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: initial;
+    transition-delay: initial;
 }
 
 .search-container {

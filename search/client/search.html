@@ -1,13 +1,12 @@
 <template name="search_bar">
 <nav class="search-bar">
     <div class="nav-wrapper">
-        <form>
-            <div class="input-field">
-                <input class="search_text" type="search" required>
-                <label for="search"><i class="material-icons">search</i></label>
-                <!-- <i class="material-icons">close</i> -->
-            </div>
-        </form>
+        <div class="input-field">
+            <i class="material-icons square do-search">search</i>
+            <input class="search_text" type="search" required>
+            <i class="material-icons square clear-search">close</i>
+            <i class="material-icons square show-menu">menu</i>
+        </div>
     </div>
 </nav>
 </template>
@@ -113,7 +112,12 @@
     {{#each seasons}}
         <li>
             <div class="collapsible-header">
-                <i class="material-icons">airplay</i>{{name}}
+                <i class="material-icons">airplay</i>
+                {{#if specials}}
+                    Specials
+                {{else}}
+                    Season {{season}}
+                {{/if}}
             </div>
             <div class="collapsible-body">
                 <ul class="collapsible episode-list" data-collapsible="accordion">
@@ -121,16 +125,18 @@
                     <li>
                         <div class="collapsible-header">{{number}}. {{name}}</div>
                         <div class="collapsible-body">
-                            <div class="row">
+                            <div class="row valign-wrapper">
                                 <div class="col s8">
                                     <p class="flow-text">{{overview}}</p>
                                 </div>
-                                <img class="col s4" src="{{thumbnail}}" />
-                                <div class="col s12 center">
-                                    <a class="waves-effect waves-light btn">
-                                        <i class="material-icons right">file_download</i>
-                                        download episode
-                                    </a>
+                                <div class="col s4">
+                                    <div class="row valign">
+                                        <img class="col s12 reactive-img" src="{{thumbnail}}" />
+                                        <a class="col s8 waves-effect waves-light btn">
+                                            <i class="material-icons right">file_download</i>
+                                            download episode
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -7,7 +7,6 @@ var search_imdb = function(query, done) {
         return done([]);
     }
     var q = query.toLowerCase().trim().replace(/\s+/, "_");
-    console.log(q);
     $.ajax({
         url: "http://sg.media-imdb.com/suggests/" + q[0] + "/" + q + ".json",
         dataType: "jsonp",
@@ -71,6 +70,20 @@ Template.search_bar.onRendered(function() {
             }
         });
     });
+    this.$("input.search_text").focus();
+});
+
+Template.search_bar.events({
+    "blur input.search_text": function(event, self) {
+        self.$(".material-icons").removeClass("active");
+    },
+    "click i.clear-search": function(event, self) {
+        self.$("input.search_text").val("");
+        Results.set();
+    },
+    "click i.do-search": function(event, self) {
+        self.$("input.search_text").focus();
+    },
 });
 
 Template.search_results.helpers({
@@ -157,8 +170,9 @@ Template.tv_detail.helpers({
             var info = [];
             _.each(data.tv_info, function(episodes, season) {
                 info.push({
-                    name: "Season " + season,
+                    season: season,
                     episodes: episodes,
+                    specials: season === "0",
                 });
             });
             return info;
