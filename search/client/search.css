@@ -85,3 +85,7 @@ h2 {
 .no-margin {
     margin: 0px;
 }
+
+p.flow-text > img.reactive-img {
+    padding-top: 0.7em;
+}

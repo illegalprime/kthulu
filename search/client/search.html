@@ -125,19 +125,17 @@
                     <li>
                         <div class="collapsible-header">{{number}}. {{name}}</div>
                         <div class="collapsible-body">
-                            <div class="row valign-wrapper">
-                                <div class="col s8">
-                                    <p class="flow-text">{{overview}}</p>
+                            <div class="row">
+                                <div class="col s12">
+                                    <p class="flow-text">
+                                        <img class="col s6 reactive-img" src="{{thumbnail}}" />
+                                        {{overview}}
+                                   </p>
                                 </div>
-                                <div class="col s4">
-                                    <div class="row valign">
-                                        <img class="col s12 reactive-img" src="{{thumbnail}}" />
-                                        <a class="col s8 waves-effect waves-light btn">
-                                            <i class="material-icons right">file_download</i>
-                                            download episode
-                                        </a>
-                                    </div>
-                                </div>
+                                <a class="col s8 offset-s2 waves-effect waves-light btn">
+                                    <i class="material-icons right">file_download</i>
+                                    download episode
+                                </a>
                             </div>
                         </div>
                     </li>
