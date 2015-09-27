@@ -25,6 +25,16 @@ nav.search-bar i.square {
     cursor: pointer;
 }
 
+@media screen and (max-width: 600px) {
+    nav.search-bar i.square {
+        padding-top: 0.5em;
+    }
+
+    i.icon-padding {
+        padding-top: 0.5em;
+    }
+}
+
 nav.search-bar i.active {
     color: black;
     background-color: white;
@@ -91,6 +101,10 @@ div.detailed-item > div.progress-container {
 .txt-img {
     width: .9em;
     margin-bottom: -.1em;
+}
+
+.center-text {
+    text-align: center !important;
 }
 
 h2 {
