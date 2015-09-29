@@ -1,3 +1,15 @@
 .scroll {
     overflow: scroll;
 }
+
+body {
+    background-color: #eee;
+}
+
+a {
+    color: #44c1ef;
+}
+
+a.btn {
+    background-color: #44c1ef;
+}

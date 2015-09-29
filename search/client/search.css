@@ -13,6 +13,19 @@ nav.search-bar input.search_text {
 
 nav.search-bar div.input-field {
     display: flex;
+    background-color: #721011;
+}
+
+nav div.nav-wrapper {
+    background-color: #bd2125;
+}
+
+div.progress {
+    background-color: rgba(227, 159, 48, 0.3);
+}
+
+div.progress > div.indeterminate {
+    background-color: #e39f30;
 }
 
 nav.search-bar i.square {
