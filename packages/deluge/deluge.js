@@ -58,7 +58,7 @@ var Deluge = function(options) {
     };
 
     self.host_satus = function(host) {
-        return send("web.get_host_status", [host])
+        return send("web.get_host_status", [host]);
     };
 
     self.connect_host = function(host) {

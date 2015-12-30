@@ -104,7 +104,9 @@ Template.search_result_item.helpers({
             cardSize.set(size);
         }
         var crop = "._SX" + size + "_CR0,0," + size + "," + size + "_";
-        return url.replace(/_(?=.{4}$)/, crop);
+        url = url.replace(/_(?=.{4}$)/, crop);
+        url = "/no_referer/" + encodeURIComponent(url);
+        return url;
     },
 });
 
