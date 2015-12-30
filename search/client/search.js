@@ -2,6 +2,10 @@ var Results = new ReactiveVar([]);
 var cardSize = new ReactiveVar();
 var selected = new ReactiveVar();
 
+var proxyUrl = function(url) {
+    return "/no_referer/" + encodeURIComponent(url);
+};
+
 var search_imdb = function(query, done) {
     if (query === "") {
         return done([]);
@@ -105,7 +109,7 @@ Template.search_result_item.helpers({
         }
         var crop = "._SX" + size + "_CR0,0," + size + "," + size + "_";
         url = url.replace(/_(?=.{4}$)/, crop);
-        url = "/no_referer/" + encodeURIComponent(url);
+        url = proxyUrl(url);
         return url;
     },
 });

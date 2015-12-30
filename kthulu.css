@@ -1,5 +1,5 @@
 .scroll {
-    overflow: scroll;
+    overflow-y: scroll;
 }
 
 body {
