@@ -9,9 +9,11 @@
 </template>
 
 <template name="sidenav">
-<ul id="sidenav" class="side-nav">
-    {{#each links}}
-        <li><a href="{{href}}">{{title}}</a></li>
-    {{/each}}
-</ul>
+<div class="sidenav-container">
+    <ul id="sidenav" class="side-nav">
+        {{#each links}}
+            <li><a href="{{href}}">{{title}}</a></li>
+        {{/each}}
+    </ul>
+</div>
 </template>

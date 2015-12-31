@@ -69,6 +69,7 @@ $(window).resize(_.debounce(function() {
 Template.search_bar.onRendered(function() {
     this.$("i.show-menu").sideNav({
         edge: "right",
+        closeOnClick: true,
     });
     this.$(".search_text").on("input", function(event) {
         search_imdb(event.currentTarget.value, function(data) {
