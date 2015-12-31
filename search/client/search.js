@@ -80,6 +80,7 @@ Template.search_bar.onRendered(function() {
 Template.search_bar.events({
     "blur input.search_text": function(event, self) {
         self.$(".material-icons").removeClass("active");
+        self.$(".input-field").removeClass("active");
     },
     "click i.clear-search": function(event, self) {
         self.$("input.search_text").val("");
@@ -89,7 +90,8 @@ Template.search_bar.events({
     "click i.do-search": function(event, self) {
         self.$("input.search_text").focus();
     },
-    "focus input.search_text": function(event) {
+    "focus input.search_text": function(event, self) {
+        self.$(".input-field").addClass("active");
         selected.set();
     },
 });

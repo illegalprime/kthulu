@@ -13,3 +13,26 @@ a {
 a.btn {
     background-color: #44c1ef;
 }
+
+@media only screen and (min-resolution: 200dpi) {
+    html {
+        font-size: 25px;
+    }
+
+    nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+        height: 100px;
+        line-height: 100px;
+    }
+
+    i.material-icons {
+        font-size: 1.5rem;
+    }
+
+    nav .input-field input {
+        font-size: 1.7rem;
+    }
+
+    span.card-title {
+        font-size: 1.3rem !important;
+    }
+}

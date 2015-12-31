@@ -10,7 +10,7 @@ nav.search-bar input.search_text {
     padding-left: 0px;
 }
 
-nav.search-bar div.input-field {
+nav.search-bar .input-field {
     display: flex;
     background-color: #721011;
 }
@@ -47,7 +47,7 @@ nav.search-bar i.square {
     }
 }
 
-nav.search-bar i.active {
+nav.search-bar i.active, nav.search-bar .input-field.active {
     color: black;
     background-color: white;
     transition-property: all;
