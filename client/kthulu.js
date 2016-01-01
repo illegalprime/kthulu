@@ -5,9 +5,9 @@ var modules = [
         title: "Movies & TV",
     },
     {
-        href: "/xboxdrv",
-        template: "xboxdrv",
-        title: "Switch XBox Modes",
+        href: "/system-management",
+        template: "system-manager",
+        title: "Manage System",
     },
     {
         href: "/apps",
