@@ -1,31 +1,22 @@
 (function() {
     var MODE_MOUSE = "sudo xboxdrv --silent --detach-kernel-driver --mouse";
     var MODE_XPAD = "sudo xboxdrv --silent --detach-kernel-driver --mimic-xpad-wireless";
+    var KILL = "sudo pkill -SIGINT xboxdrv";
 
-    var driver_proc;
-    var killed = false;
     var exec = Npm.require("child_process").exec;
 
     var teardown = function(done) {
-        if (driver_proc) {
-            driver_proc.kill("SIGINT");
+        exec(KILL, function() {
             setTimeout(function() {
-                if (!killed) {
-                    driver_proc.kill();
-                }
                 done();
             }, 2000);
-        } else {
-            done();
-        }
+        });
     };
 
     var start = function(command, done) {
         teardown(function() {
-            killed = false;
-            driver_proc = exec(command, function() {
+            exec(command, function() {
                 console.log("xboxdrv closed", arguments);
-                killed = true;
             });
             done();
         });
