@@ -20,6 +20,7 @@ This package uses some root commands, to set it up
 edit your sudoers file with visudo:
 
 ```
-michael localhost = (root) NOPASSWD: /usr/bin/xboxdrv --silent --detach-kernel-driver --mouse
-michael localhost = (root) NOPASSWD: /usr/bin/xboxdrv --silent --detach-kernel-driver --mimic-xpad-wireless
+michael ALL=(root) NOPASSWD: /usr/bin/xboxdrv --silent --detach-kernel-driver --mouse
+michael ALL=(root) NOPASSWD: /usr/bin/xboxdrv --silent --detach-kernel-driver --mimic-xpad-wireless
+michael ALL=(root) NOPASSWD: /usr/bin/pkill -SIGINT xboxdrv
 ```
