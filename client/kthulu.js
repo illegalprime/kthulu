@@ -9,6 +9,11 @@ var modules = [
         template: "xboxdrv",
         title: "XBox Controller Setup",
     },
+    {
+        href: "/apps",
+        template: "apps_overview",
+        title: "Switch Apps",
+    },
 ];
 
 _.each(modules, function(module) {

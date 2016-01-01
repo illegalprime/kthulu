@@ -2,10 +2,16 @@ var exec = Meteor.wrapAsync(Npm.require("child_process").exec);
 
 var actions = {
     focus: function(opts) {
-        if (!_.isObject(opts) || !_.isString(opts.matches)) {
-            throw new Meteor.Error("MUST_SPECIFY_MATCHING");
+        if (!_.isObject(opts)) {
+            throw new Meteor.Error("MUST_SPECIFY_CONSTRAINTS");
         }
-        exec("wmctrl -a '" + opts.matches + "'");
+        if (_.isString(opts.title)) {
+            exec("wmctrl -a '" + opts.title + "'");
+        } else if (_.isString(opts.class)) {
+            exec("wmctrl -x -a '" + opts.class + "'");
+        } else {
+            throw new Meteor.Error("NO_SUCH_WIN_SPECIFIER");
+        }
     },
 };
 
@@ -18,12 +24,5 @@ Meteor.methods({
                 throw new Meteor.Error("NO_SUCH_METHOD", method);
             }
         });
-    },
-});
-
-
-Meteor.call("wmctrl", {
-    focus: {
-        matches: "Chrome",
     },
 });

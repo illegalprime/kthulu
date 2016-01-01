@@ -1,0 +1,20 @@
+<template name="apps_overview">
+<div class="section row">
+    {{#each apps}}
+        <div class="col s6 m4 l3">
+            <div class="card app-item" data-app="{{id}}">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img src="{{cover}}">
+              </div>
+              <div class="card-content">
+                <span class="truncate card-title activator grey-text text-darken-4">
+                    {{label}}
+                </span>
+              </div>
+            </div>
+        </div>
+    {{else}}
+        <div class="center col s12"><h4>No Apps :(</h4></div>
+    {{/each}}
+</div>
+</template>
