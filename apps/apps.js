@@ -22,6 +22,11 @@ if (Meteor.isClient) {
         apps: function() {
             return APPS;
         },
+        bar_config: function() {
+            return {
+                title: "Apps",
+            };
+        },
     });
 
     Template.apps_overview.events({

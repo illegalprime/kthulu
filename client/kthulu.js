@@ -35,3 +35,28 @@ Template.lone_menu.onRendered(function() {
         closeOnClick: true,
     });
 });
+
+Template.main_bar.onRendered(function() {
+    this.$("i.show-menu").sideNav({
+        edge: "right",
+        menuWidth: 400,
+        closeOnClick: true,
+    });
+});
+
+Template.main_bar.events({
+    "blur input.search_text": function(event, self) {
+        self.$(".material-icons").removeClass("active");
+        self.$(".input-field").removeClass("active");
+    },
+    "click i.clear-search": function(event, self) {
+        self.$("input.search_text").val("");
+        self.$("input.search_text").focus();
+    },
+    "click i.do-search": function(event, self) {
+        self.$("input.search_text").focus();
+    },
+    "focus input.search_text": function(event, self) {
+        self.$(".input-field").addClass("active");
+    },
+});

@@ -66,39 +66,31 @@ $(window).resize(_.debounce(function() {
     }
 }, 500));
 
-Template.search_bar.onRendered(function() {
-    this.$("i.show-menu").sideNav({
-        edge: "right",
-        menuWidth: 400,
-        closeOnClick: true,
-    });
-    this.$(".search_text").on("input", function(event) {
+Template.search.helpers({
+    bar_config: function() {
+        return {
+            search: true,
+            float: true,
+        };
+    },
+});
+
+Template.search.onRendered(function() {
+    this.$(".main-bar input.search_text").on("input", function(event) {
         search_imdb(event.currentTarget.value, function(data) {
             if (data) {
                 Results.set(data);
             }
         });
     });
-    this.$("input.search_text").focus();
-});
-
-Template.search_bar.events({
-    "blur input.search_text": function(event, self) {
-        self.$(".material-icons").removeClass("active");
-        self.$(".input-field").removeClass("active");
-    },
-    "click i.clear-search": function(event, self) {
-        self.$("input.search_text").val("");
+    this.$("nav.main-bar input.search_text").focus();
+    this.$("nav.main-bar i.clear-search").on("click", function() {
         selected.set();
         Results.set();
-    },
-    "click i.do-search": function(event, self) {
-        self.$("input.search_text").focus();
-    },
-    "focus input.search_text": function(event, self) {
-        self.$(".input-field").addClass("active");
+    });
+    this.$("nav.main-bar input.search_text").on("focus", function() {
         selected.set();
-    },
+    });
 });
 
 Template.search_results.helpers({

@@ -5,17 +5,37 @@
 
 <template name="home">
     {{> search}}
-    {{> sidenav}}
 </template>
 
 <template name="sidenav">
 <div class="sidenav-container">
     <ul id="sidenav" class="side-nav">
         {{#each links}}
-            <li><a href="{{href}}" class="flow-text">{{title}}</a></li>
+            <li><a href="{{href}}" class="sidenav-menu-item">{{title}}</a></li>
         {{/each}}
     </ul>
 </div>
+</template>
+
+<template name="main_bar">
+<nav class="main-bar {{#if float}}{{else}} sink {{/if}}">
+    <div class="nav-wrapper">
+        <div class="input-field">
+            <i data-activates="sidenav" class="material-icons square show-menu">menu</i>
+            {{#if search}}
+                <i class="material-icons square clear-search">close</i>
+                <input class="search_text" type="search" required>
+                <i class="material-icons square do-search">search</i>
+            {{/if}}
+            {{#if title}}
+            <div class="title-wrapper valign-wrapper">
+                <p class="valign title-text flow-text left-align">{{title}}</p>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</nav>
+{{> sidenav}}
 </template>
 
 <template name="lone_menu">

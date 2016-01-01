@@ -1,17 +1,3 @@
-<template name="search_bar">
-<nav class="search-bar">
-    <div class="nav-wrapper">
-        <div class="input-field">
-            <i class="material-icons square do-search">search</i>
-            <input class="search_text" type="search" required>
-            <i class="material-icons square clear-search">close</i>
-            <i class="material-icons square show-transmission">swap_vert</i>
-            <i data-activates="sidenav" class="material-icons square show-menu">menu</i>
-        </div>
-    </div>
-</nav>
-</template>
-
 <template name="search_results">
     <div class="search-results section row">
         {{#each search_results}}
@@ -172,7 +158,9 @@
 
 <template name="search">
     <div class="search-container">
-        {{> search_bar}}
+        {{#with bar_config}}
+            {{> main_bar}}
+        {{/with}}
         {{> search_results}}
         {{> detailed_item}}
     </div>

@@ -24,9 +24,85 @@ a.btn {
     background-color: #44c1ef;
 }
 
+nav.main-bar input.search_text {
+    margin: 0px;
+    padding-left: 0px;
+}
+
+nav.main-bar .input-field {
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: #721011;
+}
+
+nav div.nav-wrapper {
+    background-color: #721011;
+}
+
+nav.main-bar i.square {
+    padding-left: .5em;
+    padding-right: .5em;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: initial;
+    transition-delay: initial;
+    cursor: pointer;
+}
+
+nav.main-bar i.show-menu {
+    text-align: right;
+}
+
+nav.main-bar.sink {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+}
+
+nav.main-bar {
+    z-index: 200;
+}
+
+@media screen and (max-width: 600px) {
+    nav.main-bar i.square {
+        padding-top: 0.5em;
+    }
+
+    i.icon-padding {
+        padding-top: 0.5em;
+    }
+}
+
+nav.main-bar i.active, nav.main-bar .input-field.active {
+    color: black;
+    background-color: white;
+    transition-property: all;
+    transition-duration: 0.3s;
+    transition-timing-function: initial;
+    transition-delay: initial;
+}
+
+nav.main-bar .title-wrapper {
+    flex-grow: 2;
+}
+
+nav.main-bar .title-text {
+    margin: 0px;
+    padding-left: 1rem;
+}
+
+a.sidenav-menu-item {
+    font-size: 1.5rem;
+}
+
 @media only screen and (min-resolution: 200dpi) {
     html {
         font-size: 25px;
+    }
+
+    a.sidenav-menu-item {
+        font-size: 1.2rem;
+        padding: 20px 0px 100px 20px;
     }
 
     nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {

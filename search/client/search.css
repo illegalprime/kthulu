@@ -5,55 +5,12 @@ div.search-results {
     flex-wrap: wrap-reverse;
 }
 
-nav.search-bar input.search_text {
-    margin: 0px;
-    padding-left: 0px;
-}
-
-nav.search-bar .input-field {
-    display: flex;
-    background-color: #721011;
-}
-
-nav div.nav-wrapper {
-    background-color: #bd2125;
-}
-
 div.progress {
     background-color: rgba(227, 159, 48, 0.3);
 }
 
 div.progress > div.indeterminate {
     background-color: #e39f30;
-}
-
-nav.search-bar i.square {
-    padding-left: .5em;
-    padding-right: .5em;
-    transition-property: all;
-    transition-duration: 0.3s;
-    transition-timing-function: initial;
-    transition-delay: initial;
-    cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-    nav.search-bar i.square {
-        padding-top: 0.5em;
-    }
-
-    i.icon-padding {
-        padding-top: 0.5em;
-    }
-}
-
-nav.search-bar i.active, nav.search-bar .input-field.active {
-    color: black;
-    background-color: white;
-    transition-property: all;
-    transition-duration: 0.3s;
-    transition-timing-function: initial;
-    transition-delay: initial;
 }
 
 .search-container {
@@ -96,10 +53,6 @@ div.detailed-item > div.progress-container {
 .episode-list {
     box-shadow: none;
     border: 0px;
-}
-
-.search-bar {
-    z-index: 200;
 }
 
 .icon-padding {
