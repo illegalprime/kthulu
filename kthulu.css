@@ -2,6 +2,16 @@
     overflow-y: scroll;
 }
 
+.lone-menu {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+}
+
+.lone-menu i {
+    background-color: #721011;
+}
+
 body {
     background-color: #eee;
 }

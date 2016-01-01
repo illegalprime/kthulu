@@ -7,7 +7,7 @@ var modules = [
     {
         href: "/xboxdrv",
         template: "xboxdrv",
-        title: "XBox Controller Setup",
+        title: "Switch XBox Modes",
     },
     {
         href: "/apps",
@@ -26,4 +26,11 @@ Template.sidenav.helpers({
     links: function() {
         return modules;
     },
+});
+
+Template.lone_menu.onRendered(function() {
+    this.$("i.show-menu").sideNav({
+        edge: "right",
+        closeOnClick: true,
+    });
 });
