@@ -1,5 +1,46 @@
-<template name="system-manager">
-    <input type="button" data-mode="mouse" class="change-mode" value="CHANGE TO MOUSE!" />
-    <input type="button" data-mode="xpad" class="change-mode" value="CHANGE TO XBOX!" />
-    <p>{{status}}</p>
+<template name="system_manager">
+<div class="container">
+    <h4 class="flow-text">XBox Controller Mode</h4>
+        {{> xboxdrv}}
+    <br/>
+    <h4 class="flow-text">Volume</h4>
+        {{> volumectl}}
+    <br/>
+</div>
+{{#with bar_config}}
+    {{> main_bar}}
+{{/with}}
+</template>
+
+<template name="xboxdrv">
+<div class="flex space-around">
+<a
+    data-mode="mouse"
+    class="waves-effect waves-light btn change-mode {{#if is_working}}disabled{{/if}}"
+    >
+        Emulate Mouse
+</a>
+<a
+    data-mode="xpad"
+    class="waves-effect waves-light btn change-mode {{#if is_working}}disabled{{/if}}"
+    >
+        Emulate XBox Controller
+</a>
+<div class="preloader-wrapper small active {{#if is_working}}{{else}}hidden{{/if}}">
+    <div class="spinner-layer spinner-red-only">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+            <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
+</div>
+</template>
+
+<template name="volumectl">
 </template>

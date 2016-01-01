@@ -6,7 +6,7 @@ var modules = [
     },
     {
         href: "/system-management",
-        template: "system-manager",
+        template: "system_manager",
         title: "Manage System",
     },
     {

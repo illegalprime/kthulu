@@ -24,6 +24,18 @@ a.btn {
     background-color: #44c1ef;
 }
 
+.flex {
+    display: flex;
+}
+
+.flex.space-around {
+    justify-content: space-around;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
 nav.main-bar input.search_text {
     margin: 0px;
     padding-left: 0px;
