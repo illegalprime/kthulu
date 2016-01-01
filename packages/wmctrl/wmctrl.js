@@ -1,10 +1,15 @@
 (function() {
     "use strict";
+    var path = Npm.require("path");
+
+    var DISPLAY = ":0";
+    var XAUTHORITY = path.join("/home", process.env.USER, ".Xauthority");
 
     var exec = function(cmd) {
         return Meteor.wrapAsync(Npm.require("child_process").exec)(cmd, {
             env: {
-                DISPLAY: ":0",
+                DISPLAY: DISPLAY,
+                XAUTHORITY: XAUTHORITY,
             },
         });
     };
