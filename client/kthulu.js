@@ -31,6 +31,7 @@ Template.sidenav.helpers({
 Template.lone_menu.onRendered(function() {
     this.$("i.show-menu").sideNav({
         edge: "right",
+        menuWidth: 400,
         closeOnClick: true,
     });
 });
