@@ -1,0 +1,17 @@
+p.volume-bar-wrapper {
+    margin: 0px;
+}
+
+input[type=range].volume-bar {
+    border: 0px;
+}
+
+form.volume-bar-form {
+    flex-grow: 2;
+}
+
+p.volume-label {
+    padding-top: 0.3rem;
+    padding-left: 1rem;
+    width: 3rem;
+}

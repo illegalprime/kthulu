@@ -36,6 +36,26 @@ a.btn {
     visibility: hidden;
 }
 
+.center-text {
+    text-align: center !important;
+}
+
+h2 {
+    margin: 0px;
+}
+
+.no-margin {
+    margin: 0px;
+}
+
+p.flow-text > img.reactive-img {
+    padding-top: 0.4em;
+}
+
+p.flow-text {
+    text-align: justify;
+}
+
 nav.main-bar input.search_text {
     margin: 0px;
     padding-left: 0px;

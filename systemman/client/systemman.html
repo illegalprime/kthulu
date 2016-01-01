@@ -1,10 +1,12 @@
 <template name="system_manager">
 <div class="container">
+    <br/>
     <h4 class="flow-text">XBox Controller Mode</h4>
-        {{> xboxdrv}}
+    {{> xboxdrv}}
+    <br/>
     <br/>
     <h4 class="flow-text">Volume</h4>
-        {{> volumectl}}
+    {{> volumectl}}
     <br/>
 </div>
 {{#with bar_config}}
@@ -43,4 +45,12 @@
 </template>
 
 <template name="volumectl">
+<div class="flex">
+    <form action="#" class="volume-bar-form">
+        <p class="range-field volume-bar-wrapper">
+            <input class="volume-bar" type="range" min="0" max="100" />
+        </p>
+    </form>
+    <p class="flow-text no-margin volume-label">{{volume}}%</p>
+</div>
 </template>
