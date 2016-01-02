@@ -32,6 +32,14 @@ a.btn {
     justify-content: space-around;
 }
 
+.flex.justify-right {
+    justify-content: flex-end;
+}
+
+.side-margin {
+    margin: 0px 25px;
+}
+
 .hidden {
     visibility: hidden;
 }
@@ -152,5 +160,9 @@ a.sidenav-menu-item {
 
     span.card-title {
         font-size: 1.3rem !important;
+    }
+
+    a.btn {
+        padding: 0.7rem 2rem 2rem 2rem;
     }
 }
