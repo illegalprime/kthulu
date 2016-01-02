@@ -1,5 +1,3 @@
 #!/bin/bash
 IP=$1
-cd $(dirname $0)
-
-rsync -chavzP . $USER@$IP:/home/$USER/cde/meteor/
+rsync -chavzP "$(dirname $0)" $USER@$IP:/home/$USER/cde/meteor/kthulu
