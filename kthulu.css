@@ -36,6 +36,18 @@ a.btn {
     justify-content: flex-end;
 }
 
+a.btn.icon-only {
+    padding: 0rem 1rem;
+}
+
+a.btn.icon-only i {
+    font-size: 2rem;
+}
+
+.x-spacer {
+    padding-left: 1rem;
+}
+
 .side-margin {
     margin: 0px 25px;
 }
@@ -164,5 +176,9 @@ a.sidenav-menu-item {
 
     a.btn {
         padding: 0.7rem 2rem 2rem 2rem;
+    }
+
+    a.btn.icon-only {
+        padding: 0.7rem 0.7rem 2rem 0.7rem;
     }
 }

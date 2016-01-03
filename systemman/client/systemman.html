@@ -5,7 +5,6 @@
     {{> xboxdrv}}
     <br/>
     <br/>
-    <h4 class="flow-text">Volume</h4>
     {{> volumectl}}
     <br/>
 </div>
@@ -45,12 +44,25 @@
 </template>
 
 <template name="volumectl">
-<div class="flex">
+<h4 class="flow-text">Volume: {{volume}}%</h4>
+<div class="flex space-around">
     <form action="#" class="volume-bar-form">
         <p class="range-field volume-bar-wrapper">
-            <input class="volume-bar" type="range" min="0" max="100" />
+            <input class="volume-bar" disabled="{{muted}}"
+                type="range" min="0" max="100" />
         </p>
     </form>
-    <p class="flow-text no-margin volume-label">{{volume}}%</p>
+    <span class="x-spacer">
+    </span>
+    <a data-muted="{{muted}}"
+        class="waves-effect waves-light btn icon-only mute-btn">
+        <i class="material-icons no-margin">
+            {{#if muted}}
+                volume_up
+            {{else}}
+                volume_off
+            {{/if}}
+        </i>
+    </a>
 </div>
 </template>

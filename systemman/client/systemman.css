@@ -4,6 +4,7 @@ p.volume-bar-wrapper {
 
 input[type=range].volume-bar {
     border: 0px;
+    margin-top: 1.2rem;
 }
 
 input[type=range].volume-bar::-webkit-slider-thumb {
@@ -12,13 +13,21 @@ input[type=range].volume-bar::-webkit-slider-thumb {
     margin-top: -9px;
 }
 
+input[type=range].volume-bar:disabled::-webkit-slider-thumb {
+    background-color: grey;
+}
+
 @media only screen and (min-resolution: 200dpi) {
+    input[type=range].volume-bar {
+        padding-top: 0.15rem;
+    }
+
     input[type=range].volume-bar::-moz-range-thumb {
         height: 60px;
         width: 60px;
         margin-top: -30px;
     }
-    
+
     input[type=range].volume-bar::-webkit-slider-thumb {
         height: 60px;
         width: 60px;
