@@ -1,3 +1,3 @@
 #!/bin/bash
 IP=$1
-rsync -chavzP "$(dirname $0)" $USER@$IP:/home/$USER/cde/meteor/kthulu
+rsync -chavzPR $(git ls-tree -r master --name-only) $USER@$IP:/home/$USER/cde/meteor/kthulu
