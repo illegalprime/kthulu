@@ -25,7 +25,7 @@
         name: "steam",
         cover: "/steam.png",
         label: "Steam",
-        cmd: "steam",
+        cmd: "steam -bigpicture",
         filter: {
             class: "Steam",
         },
