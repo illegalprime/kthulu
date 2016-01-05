@@ -2,15 +2,32 @@
 <div class="section row">
     {{#each apps}}
         <div class="col s6 m4 l3">
-            <div class="card app-item" data-app="{{_id}}">
-              <div class="card-image waves-effect waves-block waves-light">
-                <img src="{{cover}}">
-              </div>
-              <div class="card-content">
-                <span class="truncate card-title activator grey-text text-darken-4">
-                    {{label}}
-                </span>
-              </div>
+            <div class="card app-item" data-app="{{_id}}" data-working="{{working}}">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img src="{{cover}}">
+                    {{#if working}}
+                        <div class="card-overlay">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-red-only">
+                                    <div class="circle-clipper left">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="gap-patch">
+                                        <div class="circle"></div>
+                                    </div>
+                                    <div class="circle-clipper right">
+                                        <div class="circle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+                <div class="card-content">
+                    <span class="truncate card-title activator grey-text text-darken-4">
+                        {{label}}
+                    </span>
+                </div>
             </div>
         </div>
     {{else}}

@@ -15,6 +15,9 @@ Template.apps_overview.helpers({
 
 Template.apps_overview.events({
     "click .app-item": function(event) {
+        if (event.currentTarget.dataset.working) {
+            return;
+        }
         var id = event.currentTarget.dataset.app;
         Meteor.call("kthulu_apps_run", id, function(err) {
             if (err) {
