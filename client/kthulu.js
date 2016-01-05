@@ -12,7 +12,7 @@ var modules = [
     {
         href: "/apps",
         template: "apps_overview",
-        title: "Switch Apps",
+        title: "Apps",
     },
 ];
 

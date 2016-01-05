@@ -4,6 +4,7 @@
     var KILL = "sudo pkill -SIGINT xboxdrv";
 
     var exec = Npm.require("child_process").exec;
+    var Log = console;
 
     var teardown = function(done) {
         exec(KILL, function() {
@@ -16,7 +17,7 @@
     var start = function(command, done) {
         teardown(function() {
             exec(command, function() {
-                console.log("xboxdrv closed", arguments);
+                Log.info("xboxdrv closed", arguments);
             });
             done();
         });
