@@ -17,6 +17,7 @@ Package.onUse(function(api) {
         "kthulu:wmctrl",
         "froatsnook:sleep",
         "underscore",
+        "mongo",
     ]);
     api.addFiles("apps.js", "server");
 });

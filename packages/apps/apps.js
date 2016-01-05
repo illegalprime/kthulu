@@ -4,7 +4,57 @@
     var exec = Npm.require("child_process").exec;
     var Log = console;
 
-    kthulu_apps.run = function(app, opts) {
+    var Apps = new Mongo.Collection("Apps");
+
+    Apps.remove({});
+    Apps.insert({
+        name: "netflix",
+        cover: "/netflix.png",
+        label: "Netflix",
+        cmd: "google-chrome --app='http://www.netflix.com/browse'",
+        timeout: 5000,
+        filter: {
+            class: "www.netflix.com__browse.google-chrome",
+        },
+        run_with: {
+            focus: true,
+            fullscreen: "on",
+        },
+    });
+    Apps.insert({
+        name: "steam",
+        cover: "/steam.png",
+        label: "Steam",
+        cmd: "steam",
+        filter: {
+            class: "Steam",
+        },
+    });
+
+    Meteor.publish("Apps", function() {
+        return Apps.find({});
+    });
+
+    kthulu_apps.run = function(id) {
+        // Find the app, we'll probably need all of it
+        var app = Apps.findOne({
+            _id: id,
+        });
+        // Only start it once
+        if (!app) {
+            throw new Meteor.Error("NO_SUCH_APP");
+        } else if (app.working) {
+            return;
+        } else {
+            // Don't call me again!
+            Apps.update({
+                _id: id,
+            }, {
+                $set: {
+                    working: true,
+                },
+            });
+        }
         // Start the app if its not running
         if (!kthulu_apps.find(app)) {
             exec(app.cmd);
@@ -20,21 +70,29 @@
                         throw new Meteor.Error("APP_START_TIMEOUT");
                     }
                 } while (!kthulu_apps.find(app));
-                Log.info("app started", app.label);
+                Log.info("app started", app.name);
             }
         }
-        if (opts) {
+        if (app.run_with) {
             // Extract wmctrl options
             var winman = {};
-            if (_.isBoolean(opts.focus)) {
-                winman.focus = opts.focus;
+            if (_.isBoolean(app.run_with.focus)) {
+                winman.focus = app.run_with.focus;
             }
-            if (_.isString(opts.fullscreen)) {
-                winman.fullscreen = opts.fullscreen;
+            if (_.isString(app.run_with.fullscreen)) {
+                winman.fullscreen = app.run_with.fullscreen;
             }
 
             kthulu_apps.manage(app, winman);
         }
+        // We are finished starting the app
+        Apps.update({
+            _id: id
+        }, {
+            $set: {
+                working: false,
+            },
+        });
     };
 
     kthulu_apps.kill = function(app) {
