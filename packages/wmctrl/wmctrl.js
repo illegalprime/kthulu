@@ -22,21 +22,14 @@
         };
     })();
 
-    var optsToCmd = function(opts) {
+    var optsToCmds = function(opts) {
         // We will delete options as they get used, so lets not mess up
         // someone else's object
         opts = _.clone(opts);
-        var full_cmd = ["wmctrl"];
+        var cmds = [];
+        var PROGRAM = ["wmctrl"];
         var matcher;
-        var matcher_flag;
-
-        // Change matcher flag if focus is enabled
-        if (_.isBoolean(opts.focus) && opts.focus) {
-            matcher_flag = "-a";
-        } else {
-            matcher_flag = "-r";
-        }
-        delete opts.focus;
+        var matcher_flags = [];
 
         // Find the matcher
         if (_.isString(opts.title)) {
@@ -44,13 +37,18 @@
             matcher = opts.title;
             delete opts.title;
         } else if (_.isString(opts.class)) {
-            full_cmd.push("-x");
+            matcher_flags.push("-x");
             matcher = opts.class;
             delete opts.class;
         }
 
-        full_cmd.push(matcher_flag);
-        full_cmd.push(matcher);
+        // Change matcher flag if focus is enabled
+        if (_.isBoolean(opts.focus) && opts.focus) {
+            // Focus needs to be it's own command
+            cmds.push(PROGRAM.concat(matcher_flags, "-a", matcher));
+        }
+        delete opts.focus;
+        matcher_flags.push("-r");
 
         // Change our on/off/toggle to wmctrl's on/off/toggle
         var toggleStateToArg = function(action, prop) {
@@ -68,8 +66,9 @@
 
         // If fullscreen is there then add it!
         if (_.isString(opts.fullscreen)) {
-            full_cmd.push("-b");
-            full_cmd.push(toggleStateToArg(opts.fullscreen, "fullscreen"));
+            // Fullscreen also needs to be it's own command
+            var state = toggleStateToArg(opts.fullscreen, "fullscreen");
+            cmds.push(PROGRAM.concat(matcher_flags, matcher, "-b", state));
             delete opts.fullscreen;
         }
 
@@ -77,7 +76,7 @@
         if (_.keys(opts).length > 0) {
             throw new Meteor.Error("GIVEN_UNSUPPORED_OPTIONS");
         }
-        return full_cmd;
+        return cmds;
     };
 
     var list_windows = function() {
@@ -104,7 +103,9 @@
             if (options.list) {
                 return list_windows();
             } else {
-                exec(optsToCmd(options));
+                _.each(optsToCmds(options), function(cmd) {
+                    exec(cmd);
+                });
             }
         },
     });
