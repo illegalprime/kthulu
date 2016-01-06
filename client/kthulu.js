@@ -5,14 +5,19 @@ var modules = [
         title: "Movies & TV",
     },
     {
-        href: "/system-management",
-        template: "system_manager",
-        title: "Manage System",
+        href: "/music",
+        template: "music_overview",
+        title: "Music",
     },
     {
         href: "/apps",
         template: "apps_overview",
         title: "Apps",
+    },
+    {
+        href: "/system-management",
+        template: "system_manager",
+        title: "Settings",
     },
 ];
 

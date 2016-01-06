@@ -1,0 +1,37 @@
+<template name="music_overview">
+    <div class="search-container">
+        {{#with bar_config}}
+            {{> main_bar}}
+        {{/with}}
+        <div class="search-results section row">
+            {{#each search_results}}
+                {{> music_search_result_item}}
+            {{else}}
+                <div class="center col s12"><h4>No Music Found :(</h4></div>
+            {{/each}}
+        </div>
+    </div>
+</template>
+
+<template name="music_search_result_item">
+<div class="col s6 m4 l3">
+    <div class="card search-result-item" id="{{id}}">
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="movie-cover" src="{{pick_image album.images}}">
+        </div>
+        <div class="card-content">
+            <span class="truncate card-title activator grey-text text-darken-4">
+                {{name}}
+            </span>
+            <i class="material-icons right">{{pick_icon type}}</i>
+            <p class="truncate">
+                {{#if album.name}}
+                    {{album.name}}
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </p>
+        </div>
+    </div>
+</div>
+</template>
