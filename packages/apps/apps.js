@@ -29,6 +29,9 @@
         filter: {
             class: "Steam",
         },
+        run_with: {
+            focus: true,
+        },
     });
 
     Meteor.publish("Apps", function() {
@@ -55,6 +58,16 @@
                 },
             });
         }
+        var cleanup = function() {
+            // We are finished starting the app
+            Apps.update({
+                _id: id
+            }, {
+                $set: {
+                    working: false,
+                },
+            });
+        };
         // Start the app if its not running
         if (!kthulu_apps.find(app)) {
             exec(app.cmd);
@@ -83,16 +96,14 @@
                 winman.fullscreen = app.run_with.fullscreen;
             }
 
-            kthulu_apps.manage(app, winman);
+            try {
+                kthulu_apps.manage(app, winman);
+            } catch (err) {
+                cleanup();
+                throw err;
+            }
         }
-        // We are finished starting the app
-        Apps.update({
-            _id: id
-        }, {
-            $set: {
-                working: false,
-            },
-        });
+        cleanup();
     };
 
     kthulu_apps.kill = function(app) {
