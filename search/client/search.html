@@ -11,22 +11,22 @@
 <template name="search_result_item">
 <div class="col s6 m4 l3">
     <div class="card search-result-item" id="{{imdb}}">
-      <div class="card-image waves-effect waves-block waves-light">
-        <img class="movie-cover" src="{{imdb_img cover}}">
-      </div>
-      <div class="card-content">
-        <span class="truncate card-title activator grey-text text-darken-4">
-            {{title}}
-        </span>
-        <i class="material-icons right">{{type_icon}}</i>
-        <p>
-            {{#if created}}
-                {{created}}
-            {{else}}
-                &nbsp;
-            {{/if}}
-        </p>
-      </div>
+        <div class="card-image waves-effect waves-block waves-light">
+            <img class="movie-cover" src="{{imdb_img cover}}">
+        </div>
+        <div class="card-content">
+            <span class="truncate card-title activator grey-text text-darken-4">
+                {{title}}
+            </span>
+            <i class="material-icons right">{{type_icon}}</i>
+            <p>
+                {{#if created}}
+                    {{created}}
+                {{else}}
+                    &nbsp;
+                {{/if}}
+            </p>
+        </div>
     </div>
 </div>
 </template>
