@@ -36,6 +36,10 @@ a.btn {
     justify-content: flex-end;
 }
 
+.flex.column-reverse {
+    flex-direction: column-reverse;
+}
+
 a.btn.icon-only {
     padding: 0rem 1rem;
 }
