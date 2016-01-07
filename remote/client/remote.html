@@ -1,0 +1,12 @@
+<template name="remote">
+<div class="remote-container flex column-reverse">
+    {{#with bar_config}}
+        {{> main_bar}}
+    {{/with}}
+    {{#HammerTouchArea gestureMap=gestures configureCallback=hammer_config}}
+        <div class="touch-region">&nbsp;</div>
+    {{/HammerTouchArea}}
+    <input type="search" class="keyboard-input" required
+        placeholder="tap to type text" />
+</div>
+</template>

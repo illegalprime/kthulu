@@ -1,6 +1,9 @@
 (function() {
     "use strict";
 
+    // NOTE: No way to set the display except for this with robot.js
+    process.env.DISPLAY = process.env.DISPLAY || ":0";
+
     var robot = Npm.require("robotjs");
 
     Meteor.methods({
@@ -31,7 +34,11 @@
             robot.scrollMouse(magnitude, direction);
         },
         "remote_type_key": function(key, modifier) {
-            robot.keyTap(key, modifier);
+            if (modifier) {
+                robot.keyTap(key, modifier);
+            } else {
+                robot.keyTap(key);
+            }
         },
         "remote_type_text": function(text) {
             robot.typeString(text);

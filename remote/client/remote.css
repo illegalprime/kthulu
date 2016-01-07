@@ -1,0 +1,50 @@
+.hammer-touch-area, .touch-region {
+    height: 100%;
+    width: 100%;
+}
+
+.hammer-touch-area {
+    flex-grow: 2;
+}
+
+.remote-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    background-color: #721011;
+    overflow: hidden;
+}
+
+.remote-container nav {
+    box-shadow: none;
+}
+
+input[type=search].keyboard-input {
+    position: absolute;
+    top: 10%;
+    left: 0px;
+    width: 80%;
+    height: 3.2rem;
+    line-height: 2.9rem;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 0px;
+    margin-top: 0px;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 0.2rem;
+    font-size: 3rem;
+    text-align: center;
+    border: none;
+    border-bottom: none;
+    color: #ffffff;
+    display: none;
+}
+
+input[type=search].keyboard-input:focus {
+    border-bottom: none;
+    box-shadow: none;
+    background-color: rgba(0, 0, 0, 0.3);
+}

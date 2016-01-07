@@ -15,6 +15,11 @@ var modules = [
         title: "Apps",
     },
     {
+        href: "/remote",
+        template: "remote",
+        title: "Remote Control",
+    },
+    {
         href: "/system-management",
         template: "system_manager",
         title: "Settings",
