@@ -1,8 +1,27 @@
 (function() {
     "use strict";
+
     var kthulu_apps = {};
-    var exec = Npm.require("child_process").exec;
+    var path = Npm.require("path");
     var Log = console;
+
+    var DISPLAY = process.DISPLAY || ":0";
+    var XAUTHORITY = process.env.XAUTHORITY ||
+        path.join("/home", process.env.USER, ".Xauthority");
+
+    var exec;
+    (function() {
+        var npmExec = Npm.require("child_process").exec;
+        exec = function(cmd, callback) {
+            Log.info("running", cmd);
+            npmExec(cmd, {
+                env: {
+                    DISPLAY: DISPLAY,
+                    XAUTHORITY: XAUTHORITY,
+                },
+            }, callback);
+        };
+    })();
 
     var Apps = new Mongo.Collection("Apps");
 
@@ -25,7 +44,7 @@
         name: "steam",
         cover: "/steam.png",
         label: "Steam",
-        cmd: "steam -bigpicture",
+        cmd: "/usr/games/steam -bigpicture",
         filter: {
             class: "Steam",
         },
@@ -70,7 +89,10 @@
         };
         // Start the app if its not running
         if (!kthulu_apps.find(app)) {
-            exec(app.cmd);
+            exec(app.cmd, function(error, stdout, stderr) {
+                Log.info(app.cmd, "stdout", stdout);
+                Log.info(app.cmd, "stderr", stderr);
+            });
             // Wait for a certain timeout if specified
             if (_.isNumber(app.timeout)) {
                 var step = 500;
@@ -80,6 +102,7 @@
                     waiting += step;
                     if (waiting > app.timeout) {
                         Log.error("app start timed out", app.label);
+                        cleanup();
                         throw new Meteor.Error("APP_START_TIMEOUT");
                     }
                 } while (!kthulu_apps.find(app));
@@ -100,7 +123,7 @@
                 kthulu_apps.manage(app, winman);
             } catch (err) {
                 cleanup();
-                throw err;
+                throw new Meteor.Error("ERR_APP_MANAGE", err);
             }
         }
         cleanup();

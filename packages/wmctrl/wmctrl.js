@@ -3,7 +3,7 @@
     var path = Npm.require("path");
     var Log = console;
 
-    var DISPLAY = ":0";
+    var DISPLAY = process.DISPLAY || ":0";
     var XAUTHORITY = process.env.XAUTHORITY ||
         path.join("/home", process.env.USER, ".Xauthority");
 
