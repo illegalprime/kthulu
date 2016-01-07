@@ -12,6 +12,7 @@ caching-compiler@1.0.0
 caching-html-compiler@1.0.2
 callback-hook@1.0.4
 check@1.1.0
+chriswessels:hammer@4.0.2
 ddp@1.2.2
 ddp-client@1.2.1
 ddp-common@1.2.2
@@ -44,6 +45,7 @@ iron:url@1.0.11
 jquery@1.11.4
 kthulu:apps@0.0.1
 kthulu:proxy@0.0.1
+kthulu:remote@0.0.1
 kthulu:system@0.0.1
 kthulu:wmctrl@0.0.1
 kthulu:xboxdrv@0.0.1

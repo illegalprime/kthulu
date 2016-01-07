@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "robotjs": {
+      "version": "0.3.7",
+      "dependencies": {
+        "nan": {
+          "version": "2.1.0"
+        }
+      }
+    }
+  }
+}
