@@ -5,9 +5,10 @@
     var path = Npm.require("path");
     var Log = console;
 
+    var USER = process.env.USER;
     var DISPLAY = process.DISPLAY || ":0";
-    var XAUTHORITY = process.env.XAUTHORITY ||
-        path.join("/home", process.env.USER, ".Xauthority");
+    var HOME = process.env.HOME || path.join("/home", USER);
+    var XAUTHORITY = process.env.XAUTHORITY || path.join(HOME, ".Xauthority");
 
     var exec;
     (function() {
@@ -18,6 +19,8 @@
                 env: {
                     DISPLAY: DISPLAY,
                     XAUTHORITY: XAUTHORITY,
+                    HOME: HOME,
+                    USER: USER,
                 },
             }, callback);
         };
