@@ -4,6 +4,10 @@
     var R_CLICK_TIMEOUT = 500;
     var ACCELERATION = 0.1;
 
+    // TODO: add scroll capability
+    // TODO: add click and drag capability
+    // TODO: complete simple keyboard control
+
     Template.remote.onCreated(function() {
         var tmpl = this;
         tmpl.press_timeout = null;
