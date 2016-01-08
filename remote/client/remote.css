@@ -3,6 +3,20 @@
     width: 100%;
 }
 
+.scroll-region {
+    position: absolute;
+    right: 0px;
+    top: 25%;
+    height: 60%;
+    width: 10%;
+    border-top-left-radius: 7px;
+    border-bottom-left-radius: 7px;
+    background: rgba(227, 159, 48, 0.2);
+    border-color: rgba(227, 159, 48, 0.6);
+    border-width: 10px;
+    border-style: solid;
+}
+
 .hammer-touch-area {
     flex-grow: 2;
 }

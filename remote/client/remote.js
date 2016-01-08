@@ -4,9 +4,19 @@
     var R_CLICK_TIMEOUT = 1000;
     var DRAG_TIMEOUT = 350;
     var ACCELERATION = 0.1;
+    var SCROLL_SPEED = 15;
+    var SCROLL_UPDATE_IVAL = 10;
+    var SCROLL_DECEL = 0.01;
 
     // TODO: add scroll capability
     // TODO: complete simple keyboard control
+
+    var velocity_to_scroll = function(vel) {
+        return {
+            speed: Math.log2(Math.abs(vel * SCROLL_SPEED) + 2),
+            dir: vel < 0 ? "up" : "down",
+        };
+    };
 
     Template.remote.onCreated(function() {
         var tmpl = this;
@@ -76,6 +86,34 @@
                 var y = dy * Math.abs(dy) * ACCELERATION;
                 Meteor.call("remote_inc_mouse", x, y);
                 tmpl.last_pan = event;
+            },
+            "panstart .scroll-region": function(event, tmpl) {
+                if (tmpl.inertial_scroll) {
+                     clearInterval(tmpl.inertial_scroll.interval);
+                }
+            },
+            "panmove .scroll-region": function(event, tmpl) {
+                // we only care about vertical scrolling
+                var vel = velocity_to_scroll(event.velocityY);
+                Meteor.call("remote_scroll", vel.speed, vel.dir);
+            },
+            "panend .scroll-region": function(event, tmpl) {
+                console.log("starting inertial scroll");
+                tmpl.inertial_scroll = velocity_to_scroll(event.velocityY);
+                tmpl.inertial_scroll.count = 1;
+                tmpl.inertial_scroll.interval = setInterval(function() {
+                    console.log("inertial scroll", tmpl.inertial_scroll);
+                    var count = tmpl.inertial_scroll.count;
+                    tmpl.inertial_scroll.speed -= SCROLL_DECEL * count;
+                    tmpl.inertial_scroll.count += 1;
+                    var speed = tmpl.inertial_scroll.speed;
+                    if (speed < 0) {
+                        clearInterval(tmpl.inertial_scroll.interval);
+                        return;
+                    }
+                    var dir = tmpl.inertial_scroll.dir;
+                    Meteor.call("remote_scroll", speed, dir);
+                }, SCROLL_UPDATE_IVAL);
             },
         },
     });
