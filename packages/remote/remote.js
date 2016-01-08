@@ -27,8 +27,8 @@
         "remote_click_mouse_button": function(button, is_double) {
             robot.mouseClick(button, is_double);
         },
-        "remote_set_mouse_button": function(button, is_down) {
-            robot.mouseToggle(is_down, button);
+        "remote_set_mouse_button": function(button, state) {
+            robot.mouseToggle(state, button);
         },
         "remote_scroll": function(magnitude, direction) {
             robot.scrollMouse(magnitude, direction);

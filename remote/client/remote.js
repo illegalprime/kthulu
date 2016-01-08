@@ -1,11 +1,11 @@
 (function() {
     "use strict";
 
-    var R_CLICK_TIMEOUT = 500;
+    var R_CLICK_TIMEOUT = 1000;
+    var DRAG_TIMEOUT = 350;
     var ACCELERATION = 0.1;
 
     // TODO: add scroll capability
-    // TODO: add click and drag capability
     // TODO: complete simple keyboard control
 
     Template.remote.onCreated(function() {
@@ -51,19 +51,30 @@
                     Meteor.call("remote_click_mouse_button", "right", false);
                     tmpl.clicked = true;
                 }, R_CLICK_TIMEOUT);
+                tmpl.latest_press = Date.now();
             },
             "panend .touch-region": function(event, tmpl) {
                 tmpl.last_pan = undefined;
-            },
-            "pan .touch-region": function(event, tmpl) {
-                tmpl.cancel_press_timeout();
-                if (tmpl.last_pan) {
-                    var dx = event.center.x - tmpl.last_pan.center.x;
-                    var dy = event.center.y - tmpl.last_pan.center.y;
-                    var x = dx * Math.abs(dx) * ACCELERATION;
-                    var y = dy * Math.abs(dy) * ACCELERATION;
-                    Meteor.call("remote_inc_mouse", x, y);
+                if (tmpl.dragging) {
+                    tmpl.dragging = false;
+                    tmpl.latest_press = NaN;
+                    Meteor.call("remote_set_mouse_button", "left", "up");
                 }
+            },
+            "panstart .touch-region": function(event, tmpl) {
+                tmpl.cancel_press_timeout();
+                tmpl.last_pan = event;
+                if (Date.now() - tmpl.latest_press > DRAG_TIMEOUT) {
+                    tmpl.dragging = true;
+                    Meteor.call("remote_set_mouse_button", "left", "down");
+                }
+            },
+            "panmove .touch-region": function(event, tmpl) {
+                var dx = event.center.x - tmpl.last_pan.center.x;
+                var dy = event.center.y - tmpl.last_pan.center.y;
+                var x = dx * Math.abs(dx) * ACCELERATION;
+                var y = dy * Math.abs(dy) * ACCELERATION;
+                Meteor.call("remote_inc_mouse", x, y);
                 tmpl.last_pan = event;
             },
         },
