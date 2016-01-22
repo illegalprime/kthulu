@@ -4,7 +4,10 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
+    if (process.env.IGNORE_SECRETS) {
+        api.addFiles("secrets.safe.js", "server");
+    } else {
+        api.addFiles("secrets.js", "server");
+    }
     api.export("SECRETS", "server");
-    api.addFiles("secrets.js", "server");
-    api.addAssets("secrets.json", "server");
 });
