@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+    - "stable"
+install:
+    - "curl https://install.meteor.com/ | sh"
+branches:
+    only:
+        - master
+env:
+    - CXX=g++-4.8 PATH="$HOME/.meteor:$PATH"
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - g++-4.8
+            - python2
+            - make
+            - libxtst-dev
+            - libpng++-dev
+            - alsa-utils
+            - wmctrl
+            - xboxdrv
+script:
+    - env
+    - meteor build .
