@@ -6,4 +6,5 @@ Package.describe({
 Package.onUse(function(api) {
     api.export("SECRETS", "server");
     api.addFiles("secrets.js", "server");
+    api.addAssets("secrets.json", "server");
 });
