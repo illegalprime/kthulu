@@ -1,6 +1,7 @@
 (function() {
     "use strict";
     var exec = Meteor.wrapAsync(Npm.require("child_process").exec);
+    var alsa = Npm.require("alsa-monitor");
 
     // System is a singleton collection
     var System = new Mongo.Collection("SystemState");
@@ -54,6 +55,11 @@
 
     // Update info on boot
     update.all();
+
+    // Keep track of volume changes
+    alsa.monitor(Meteor.bindEnvironment(function() {
+        update.volume();
+    }));
 
     Meteor.publish("SystemState", function() {
         return System.find({});

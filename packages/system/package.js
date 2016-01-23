@@ -10,6 +10,10 @@ Package.describe({
     documentation: "README.md"
 });
 
+Npm.depends({
+    "alsa-monitor": "https://github.com/illegalprime/alsa-monitor-node/archive/05d2e16b81da6665dfee8c06c939e872f2ac8b0e.tar.gz",
+});
+
 Package.onUse(function(api) {
     api.versionsFrom("1.2.1");
     api.use([
