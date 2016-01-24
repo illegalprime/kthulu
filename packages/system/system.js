@@ -26,22 +26,25 @@
                     var arg = mute ? "on" : "off";
                     exec("amixer -D pulse --quiet sset Master " + arg);
                 }
-            }
-            // Parse volume info and update
-            var output = exec("amixer -D pulse sget Master");
-            var parsed = output.match(/\[(\d+)%\]\s+\[([^\d]+)\]/);
-            var volume = parseInt(parsed[1]);
-            var muted = parsed[2] === "off";
+            } else if (data) {
+                throw new Meteor.Error("INVALID_ARGUMENT");
+            } else {
+                // Parse volume info and update
+                var output = exec("amixer -D pulse sget Master");
+                var parsed = output.match(/\[(\d+)%\]\s+\[([^\d]+)\]/);
+                var volume = parseInt(parsed[1]);
+                var muted = parsed[2] === "off";
 
-            // Update the DB
-            System.update({}, {
-                $set: {
-                    "volume.value": volume,
-                    "volume.muted": muted,
-                },
-            }, {
-                upsert: true,
-            });
+                // Update the DB
+                System.update({}, {
+                    $set: {
+                        "volume.value": volume,
+                        "volume.muted": muted,
+                    },
+                }, {
+                    upsert: true,
+                });
+            }
         },
         // Update everything
         all: function() {
