@@ -1,11 +1,13 @@
 <template name="system_manager">
 <div class="container">
     <br/>
-    <h4 class="flow-text">XBox Controller Mode</h4>
+    {{> volumectl}}
+    <br/>
+    <br/>
     {{> xboxdrv}}
     <br/>
     <br/>
-    {{> volumectl}}
+    {{> bluetoothctl}}
     <br/>
 </div>
 {{#with bar_config}}
@@ -14,6 +16,7 @@
 </template>
 
 <template name="xboxdrv">
+<h4 class="flow-text">XBox Controller Mode</h4>
 <div class="flex space-around">
 <a
     data-mode="mouse"
@@ -64,5 +67,29 @@
             {{/if}}
         </i>
     </a>
+</div>
+</template>
+
+<template name="bluetoothctl">
+<h4 class="flow-text">Bluetooth</h4>
+<div class="flex space-around">
+<a
+    class="waves-effect waves-light btn bt-restart {{#if is_working}}disabled{{/if}}"
+    >
+        Restart Bluetooth Daemon
+</a>
+<div class="preloader-wrapper small active {{#if is_working}}{{else}}hidden{{/if}}">
+    <div class="spinner-layer spinner-red-only">
+        <div class="circle-clipper left">
+            <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+            <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+            <div class="circle"></div>
+        </div>
+    </div>
+</div>
 </div>
 </template>

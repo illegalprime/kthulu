@@ -21,7 +21,10 @@ Package.onUse(function(api) {
         "mongo",
         "underscore",
     ]);
-    api.addFiles("system.js", "server");
+    api.addFiles([
+        "system.js",
+        "bluetooth.js",
+    ], "server");
 });
 
 Package.onTest(function(api) {
