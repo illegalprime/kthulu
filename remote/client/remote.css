@@ -35,7 +35,7 @@
     box-shadow: none;
 }
 
-input[type=search].keyboard-input {
+input[type=text].keyboard-input {
     position: absolute;
     top: 10%;
     left: 0px;
@@ -54,10 +54,9 @@ input[type=search].keyboard-input {
     border: none;
     border-bottom: none;
     color: #ffffff;
-    display: none;
 }
 
-input[type=search].keyboard-input:focus {
+input[type=text].keyboard-input:focus {
     border-bottom: none;
     box-shadow: none;
     background-color: rgba(0, 0, 0, 0.3);

@@ -140,15 +140,33 @@
     var update_text = function(textbox, tmpl) {
         var text = textbox.value;
         var new_text = text.substr(tmpl.input_text_len - text.length);
+        console.log(text, new_text);
         Meteor.call("remote_type_text", new_text);
         tmpl.input_text_len = text.length;
     };
 
     Template.remote.events({
-        "keypress input.keyboard-input": function(event, tmpl) {
+        "keyup input.keyboard-input": function(event, tmpl) {
             update_text(event.currentTarget, tmpl);
         },
-        "blur input.keyboard-input": function(event) {
+        "keydown input.keyboard-input": function(event, tmpl) {
+            var prevent = function() {
+                event.preventDefault();
+                event.stopPropagation();
+            };
+            if (event.which === 8) {
+                // Backspace
+                prevent();
+                event.currentTarget.value += "⌫";
+                Meteor.call("remote_type_key", "backspace");
+            } else if (event.which === 13) {
+                // Return key
+                prevent();
+                event.currentTarget.value += "↩";
+                Meteor.call("remote_type_key", "enter");
+            }
+        },
+        "blur input.keyboard-input": function(event, tmpl) {
             event.currentTarget.value = "";
             tmpl.input_text_len = 0;
         },
