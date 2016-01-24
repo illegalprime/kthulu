@@ -2,6 +2,8 @@ var SystemStateSub = Meteor.subscribe("SystemState");
 
 var SystemState = new Mongo.Collection("SystemState");
 
+// TODO: Add lock while volume is changing so other users won't.
+
 Template.volumectl.helpers({
     volume: function() {
         var data = SystemState.findOne({}, {
@@ -42,10 +44,10 @@ Template.volumectl.events({
         });
     },
     "mousedown input[type=range].volume-bar": function(event, tmpl) {
-        tmpl.changing_volume = true;
+        tmpl.lock_volume_bar();
     },
     "mouseup input[type=range].volume-bar": function(event, tmpl) {
-        tmpl.changing_volume = false;
+        tmpl.release_volume_bar();
     },
 });
 
@@ -66,7 +68,21 @@ Template.volumectl.onRendered(function() {
         },
     });
 
-    this.autorun(function() {
+    tmpl.lock_volume_bar = function() {
+        tmpl.changing_volume = true;
+    };
+    tmpl.release_volume_bar = function() {
+        tmpl.changing_volume = false;
+    };
+
+    tmpl.$("input[type=range].volume-bar").on("touchstart", function() {
+        tmpl.lock_volume_bar();
+    });
+    tmpl.$("input[type=range].volume-bar").on("touchend", function() {
+        tmpl.release_volume_bar();
+    });
+
+    tmpl.autorun(function() {
         var data = SystemState.findOne({}, {
             fields: {
                 "volume.value": true,
