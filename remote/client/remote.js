@@ -4,17 +4,16 @@
     var R_CLICK_TIMEOUT = 1000;
     var DRAG_TIMEOUT = 350;
     var ACCELERATION = 0.1;
-    var SCROLL_SPEED = 15;
+    var SCROLL_SPEED = 0.5;
     var SCROLL_UPDATE_IVAL = 10;
-    var SCROLL_DECEL = 0.01;
+    var SCROLL_DECEL = 0.0001;
 
-    // TODO: add scroll capability
     // TODO: complete simple keyboard control
 
     var velocity_to_scroll = function(vel) {
         return {
-            speed: Math.log2(Math.abs(vel * SCROLL_SPEED) + 2),
-            dir: vel < 0 ? "up" : "down",
+            speed: Math.log2(Math.abs(vel) + 1) * SCROLL_SPEED,
+            dir: vel < 0 ? "down" : "up",
         };
     };
 
@@ -91,15 +90,35 @@
                 if (tmpl.inertial_scroll) {
                      clearInterval(tmpl.inertial_scroll.interval);
                 }
+                tmpl.scroll_sum = 0.0;
             },
             "panmove .scroll-region": function(event, tmpl) {
                 // we only care about vertical scrolling
                 var vel = velocity_to_scroll(event.velocityY);
-                Meteor.call("remote_scroll", vel.speed, vel.dir);
+                tmpl.scroll_sum += vel.speed;
+                if (event.velocityY === 0.0) {
+                    if (tmpl.last_dir) {
+                        vel.dir = tmpl.last_dir;
+                    } else {
+                        return;
+                    }
+                } else {
+                    tmpl.last_dir = vel.dir;
+                }
+                if (tmpl.scroll_sum >= 1.0) {
+                    var speed = Math.floor(tmpl.scroll_sum);
+                    tmpl.scroll_sum -= speed;
+                    Meteor.call("remote_scroll", speed, vel.dir);
+                }
             },
             "panend .scroll-region": function(event, tmpl) {
+                // Cleaning up
+                tmpl.last_dir = undefined;
+
+                // Inertial scrolling
                 console.log("starting inertial scroll");
                 tmpl.inertial_scroll = velocity_to_scroll(event.velocityY);
+                tmpl.inertial_scroll += tmpl.scroll_sum;
                 tmpl.inertial_scroll.count = 1;
                 tmpl.inertial_scroll.interval = setInterval(function() {
                     console.log("inertial scroll", tmpl.inertial_scroll);
