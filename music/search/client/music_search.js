@@ -38,6 +38,12 @@
         }
     });
 
+    Template.music_search_result_item.events({
+        "click .search-result-item": function(event) {
+            Meteor.call("spotify_play", event.currentTarget.id);
+        },
+    });
+
     Template.music_overview.helpers({
         bar_config: function() {
             return {
