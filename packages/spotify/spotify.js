@@ -13,6 +13,7 @@
         var exec = (function() {
             var npmExec = Meteor.wrapAsync(Npm.require("child_process").exec);
             return function(cmd) {
+                Log.info("dbus call:", cmd);
                 try {
                     var out = npmExec(cmd);
                     Log.info("dbus-reply", out);
@@ -33,23 +34,32 @@
 
         var methods = {
             play: "OpenUri",
+            resume: "Play",
+            pause: "Pause",
+            next: "Next",
+            previous: "Previous",
         };
 
         self.play = function(id) {
             if (!_.isString(id) || !id.match(SPOTIFY_ID)) {
                 throw new Meteor.Error("INVALID_SPOTIFY_ID");
             }
-            var cmd = prefix + methods.play + " " + id_to_dbus(id);
-            Log.info("dbus call:", cmd);
-            exec(cmd);
+            exec(prefix + methods.play + " " + id_to_dbus(id));
         };
+
+        self.resume = exec.bind(undefined, prefix + methods.resume);
+        self.pause = exec.bind(undefined, prefix + methods.pause);
+        self.next = exec.bind(undefined, prefix + methods.next);
+        self.previous = exec.bind(undefined, prefix + methods.previous);
 
         return self;
     })();
 
     Meteor.methods({
-        spotify_play: function(id) {
-            SpotifyApi.play(id);
-        },
+        spotify_play: SpotifyApi.play,
+        spotify_resume: SpotifyApi.resume,
+        spotify_pause: SpotifyApi.pause,
+        spotify_next: SpotifyApi.next,
+        spotify_previous: SpotifyApi.previous,
     });
 })();
