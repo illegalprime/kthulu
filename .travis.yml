@@ -23,5 +23,6 @@ addons:
             - xboxdrv
             - libasound2
             - libasound2-dev
+            - dbus
 script:
     - meteor build .
