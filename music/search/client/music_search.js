@@ -39,8 +39,8 @@
     });
 
     Template.music_search_result_item.events({
-        "click .search-result-item": function(event) {
-            Meteor.call("spotify_play", event.currentTarget.id);
+        "click .search-result-item .activator": function(event) {
+            Meteor.call("spotify_play", Template.instance().data.id);
         },
     });
 
